@@ -117,22 +117,22 @@ const envelopeContent = {
     'sad': {
         title: "Jab Sad Ho... 😢",
         text: "Tension mat le, sab theek ho jayega! Aur agar mood theek karna hai toh mujhe call kar, main pareshan karne ke liye hamesha free hu! 😉",
-        img: "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?q=80&w=600&auto=format&fit=crop" // Smiling dog/comfy
+        emoji: "🫂🍫✨"
     },
     'happy': {
         title: "Jab Khush Ho... 😃",
         text: "Teri khushi mein hi meri khushi hai! Party kab de rahi hai? 🍕💃",
-        img: "https://images.unsplash.com/photo-1530103862675-83c95a0dd331?q=80&w=600&auto=format&fit=crop" // Confetti/Party
+        emoji: "💃🥳🎶"
     },
     'missing': {
         title: "Jab Miss Kare... 🥺",
         text: "Aww! Main bhi tujhe miss kar raha hu. Jaldi milenge! Tab tak ye virtual hug le le! 🤗",
-        img: "https://images.unsplash.com/photo-1517677280437-a8dabc8f4088?q=80&w=600&auto=format&fit=crop" // Hug/Together
+        emoji: "🤗❤️🏠"
     },
     'hungry': {
         title: "Jab Bhook Lagi Ho... 🍕",
         text: "Jaake fridge check kar, waha kuch nahi milega! Order kar le, bill main bhar dunga (shayad). 😜",
-        img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=600&auto=format&fit=crop" // Pizza
+        emoji: "🍕🍔🍟"
     }
 };
 
@@ -141,7 +141,7 @@ window.openEnvelope = function (type) {
     document.getElementById('modal-title').innerText = data.title;
     document.getElementById('modal-body').innerHTML = `
         <p>${data.text}</p>
-        <img src="${data.img}" class="modal-img">
+        <div style="font-size: 5rem; margin-top: 20px; animation: bounce 1s infinite alternate;">${data.emoji}</div>
     `;
     modal.classList.add('active');
     jsConfetti.addConfetti({ emojis: ['💌', '💝'] });
