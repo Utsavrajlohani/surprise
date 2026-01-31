@@ -1,10 +1,14 @@
 :root {
-    --primary-color: #ff9a9e;
-    --secondary-color: #fad0c4;
-    --accent-color: #ff6b6b;
-    --text-color: #2d3436;
-    --box-color: #ff6b6b;
-    --ribbon-color: #fff;
+    --bg-color: #050505;
+    --primary-neon: #ff00ff;
+    /* Hot Pink */
+    --secondary-neon: #00ffff;
+    /* Cyan */
+    --accent-neon: #bc13fe;
+    /* Purple */
+    --text-color: #ffffff;
+    --box-color: #222;
+    --ribbon-color: #ff00ff;
     --font-main: 'Outfit', sans-serif;
     --font-heading: 'Pacifico', cursive;
 }
@@ -18,10 +22,27 @@
 
 body {
     font-family: var(--font-main);
-    background: linear-gradient(135deg, #fff1eb 0%, #ace0f9 100%);
+    background-color: var(--bg-color);
+    background-image:
+        radial-gradient(white, rgba(255, 255, 255, .2) 2px, transparent 3px),
+        radial-gradient(white, rgba(255, 255, 255, .15) 1px, transparent 2px),
+        radial-gradient(white, rgba(255, 255, 255, .1) 2px, transparent 3px);
+    background-size: 550px 550px, 350px 350px, 250px 250px;
+    background-position: 0 0, 40px 60px, 130px 270px;
     min-height: 100vh;
     overflow-x: hidden;
     color: var(--text-color);
+    animation: stars 120s linear infinite;
+}
+
+@keyframes stars {
+    0% {
+        background-position: 0 0, 40px 60px, 130px 270px;
+    }
+
+    100% {
+        background-position: 550px 550px, 390px 410px, 380px 520px;
+    }
 }
 
 .container {
@@ -41,21 +62,24 @@ body {
     top: 20px;
     right: 20px;
     z-index: 100;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(5px);
-    border: 2px solid var(--accent-color);
-    color: var(--accent-color);
+    border: 2px solid var(--secondary-neon);
+    color: var(--secondary-neon);
     padding: 0.5rem 1rem;
     border-radius: 20px;
     cursor: pointer;
     font-weight: bold;
     font-family: var(--font-main);
+    box-shadow: 0 0 10px var(--secondary-neon);
     transition: 0.3s;
+    text-shadow: 0 0 5px var(--secondary-neon);
 }
 
 .music-btn:hover {
-    background: var(--accent-color);
-    color: white;
+    background: var(--secondary-neon);
+    color: #000;
+    box-shadow: 0 0 20px var(--secondary-neon);
 }
 
 .music-btn.hidden {
@@ -95,17 +119,34 @@ body {
 /* Typography */
 h1 {
     font-family: var(--font-heading);
-    font-size: 3rem;
-    color: var(--accent-color);
+    font-size: 3.5rem;
+    color: #fff;
     margin-bottom: 0.5rem;
     text-align: center;
-    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+    text-shadow:
+        0 0 5px #fff,
+        0 0 10px #fff,
+        0 0 20px var(--primary-neon),
+        0 0 40px var(--primary-neon),
+        0 0 80px var(--primary-neon);
+    animation: neonPulse 1.5s infinite alternate;
+}
+
+@keyframes neonPulse {
+    from {
+        text-shadow: 0 0 10px #fff, 0 0 20px var(--primary-neon), 0 0 30px var(--primary-neon);
+    }
+
+    to {
+        text-shadow: 0 0 5px #fff, 0 0 10px var(--primary-neon), 0 0 15px var(--primary-neon);
+    }
 }
 
 .subtitle {
     font-size: 1.2rem;
-    color: #555;
+    color: #ddd;
     margin-bottom: 2rem;
+    text-shadow: 0 0 5px var(--secondary-neon);
 }
 
 /* 3D Gift Box */
@@ -127,18 +168,20 @@ h1 {
 .gift-body {
     width: 100%;
     height: 100%;
-    background: var(--box-color);
+    background: #111;
     position: absolute;
     bottom: 0;
     border-radius: 0 0 10px 10px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 20px var(--primary-neon);
+    border: 1px solid var(--primary-neon);
 }
 
 .gift-body::before,
 .gift-body::after {
     content: '';
     position: absolute;
-    background: var(--ribbon-color);
+    background: var(--primary-neon);
+    box-shadow: 0 0 10px var(--primary-neon);
 }
 
 .gift-body::before {
@@ -156,12 +199,13 @@ h1 {
 .gift-lid {
     width: 110%;
     height: 25%;
-    background: #ff5252;
+    background: #222;
     position: absolute;
     top: -10%;
     left: -5%;
     border-radius: 10px 10px 0 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px var(--primary-neon);
+    border: 1px solid var(--primary-neon);
     transform-origin: bottom;
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 2;
@@ -172,8 +216,9 @@ h1 {
     position: absolute;
     width: 18%;
     height: 100%;
-    background: var(--ribbon-color);
+    background: var(--primary-neon);
     left: 41%;
+    box-shadow: 0 0 5px var(--primary-neon);
 }
 
 .gift-bow {
@@ -182,9 +227,10 @@ h1 {
     left: 35%;
     width: 40px;
     height: 30px;
-    background: var(--ribbon-color);
+    background: var(--primary-neon);
     border-radius: 50% 50% 0 0;
     transform: rotate(45deg);
+    box-shadow: 0 0 10px var(--primary-neon);
 }
 
 .gift-bow::before {
@@ -193,9 +239,10 @@ h1 {
     left: -20px;
     width: 40px;
     height: 30px;
-    background: var(--ribbon-color);
+    background: var(--primary-neon);
     border-radius: 50% 50% 0 0;
     transform: rotate(-90deg);
+    box-shadow: 0 0 10px var(--primary-neon);
 }
 
 .gift-box.open .gift-lid {
@@ -229,21 +276,23 @@ h1 {
 }
 
 .message-box {
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(10, 10, 10, 0.8);
     padding: 2rem;
     border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
     margin: 2rem 0;
     min-height: 120px;
     width: 100%;
     max-width: 600px;
+    border: 1px solid var(--secondary-neon);
     text-align: center;
 }
 
 #typewriter-text {
     font-size: 1.3rem;
     line-height: 1.8;
-    color: #444;
+    color: #fff;
+    text-shadow: 0 0 2px var(--secondary-neon);
 }
 
 /* Trivia Section */
@@ -251,10 +300,11 @@ h1 {
     width: 100%;
     max-width: 500px;
     text-align: center;
-    background: white;
+    background: rgba(20, 20, 20, 0.9);
     padding: 1.5rem;
     border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--accent-neon);
+    box-shadow: 0 0 15px var(--accent-neon);
     margin-top: 1rem;
     opacity: 0;
     transform: translateY(20px);
@@ -271,28 +321,34 @@ h1 {
     width: 100%;
     padding: 1rem;
     margin: 0.5rem 0;
-    border: 2px solid #ddd;
-    background: #f9f9f9;
+    border: 2px solid var(--accent-neon);
+    background: transparent;
+    color: #fff;
     border-radius: 10px;
     cursor: pointer;
     font-size: 1.1rem;
     transition: 0.2s;
+    text-shadow: 0 0 2px var(--accent-neon);
 }
 
 .trivia-btn:hover {
-    background: #eee;
+    background: var(--accent-neon);
+    color: black;
+    box-shadow: 0 0 15px var(--accent-neon);
 }
 
 .trivia-btn.success {
-    background: #d4edda;
-    border-color: #c3e6cb;
-    color: #155724;
+    background: #00ff00;
+    border-color: #00ff00;
+    color: black;
+    box-shadow: 0 0 20px #00ff00;
 }
 
 .trivia-btn.error {
-    background: #f8d7da;
-    border-color: #f5c6cb;
-    color: #721c24;
+    background: #ff0000;
+    border-color: #ff0000;
+    color: white;
+    box-shadow: 0 0 20px #ff0000;
 }
 
 /* Envelopes Section */
@@ -318,21 +374,23 @@ h1 {
 }
 
 .envelope {
-    background: #ffecb3;
+    background: #222;
     height: 100px;
     border-radius: 5px;
     position: relative;
     cursor: pointer;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px var(--secondary-neon);
+    border: 1px solid var(--secondary-neon);
     transition: transform 0.2s;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 4px solid #ffe082;
+    border-bottom: 4px solid var(--secondary-neon);
 }
 
 .envelope:hover {
     transform: translateY(-5px);
+    box-shadow: 0 0 25px var(--secondary-neon);
 }
 
 .envelope::before {
@@ -341,10 +399,11 @@ h1 {
     top: 0;
     border-left: 70px solid transparent;
     border-right: 70px solid transparent;
-    border-top: 50px solid #ffd54f;
+    border-top: 50px solid var(--secondary-neon);
     /* Flap */
     transform-origin: top;
     transition: transform 0.3s;
+    z-index: 5;
 }
 
 .envelope:hover::before {
@@ -354,9 +413,10 @@ h1 {
 .envelope-label {
     font-size: 0.9rem;
     font-weight: bold;
-    color: #5d4037;
+    color: #fff;
     z-index: 10;
     padding: 0.5rem;
+    text-shadow: 0 0 2px black;
 }
 
 /* Modal */
@@ -368,10 +428,12 @@ h1 {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.85);
+    /* Darker backdrop */
     justify-content: center;
     align-items: center;
     padding: 2rem;
+    backdrop-filter: blur(5px);
 }
 
 .modal.active {
@@ -379,15 +441,17 @@ h1 {
 }
 
 .modal-content {
-    background-color: #fefefe;
+    background-color: #111;
     padding: 2rem;
     border-radius: 15px;
     width: 100%;
     max-width: 500px;
     position: relative;
     text-align: center;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 30px var(--primary-neon);
+    border: 1px solid var(--primary-neon);
     animation: zoomIn 0.3s;
+    color: white;
 }
 
 @keyframes zoomIn {
@@ -403,7 +467,7 @@ h1 {
 }
 
 .close-modal {
-    color: #aaa;
+    color: var(--primary-neon);
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -411,10 +475,11 @@ h1 {
     position: absolute;
     right: 20px;
     top: 10px;
+    text-shadow: 0 0 5px var(--primary-neon);
 }
 
 .close-modal:hover {
-    color: #000;
+    color: #fff;
 }
 
 .modal-img {
@@ -423,12 +488,14 @@ h1 {
     object-fit: cover;
     border-radius: 10px;
     margin-top: 1rem;
+    border: 2px solid var(--secondary-neon);
+    box-shadow: 0 0 10px var(--secondary-neon);
 }
 
 /* Floating Elements */
 #floating-container {
     position: fixed;
-    bottom: 0px;
+    bottom: 0;
     left: 0;
     width: 100%;
     height: 100%;
@@ -444,6 +511,7 @@ h1 {
     cursor: pointer;
     user-select: none;
     animation: floatUp linear forwards;
+    filter: drop-shadow(0 0 5px var(--primary-neon));
 }
 
 @keyframes floatUp {
@@ -459,19 +527,22 @@ h1 {
 .secondary-btn {
     margin-top: 2rem;
     padding: 1rem 3rem;
-    background: white;
-    border: 2px solid var(--accent-color);
-    color: var(--accent-color);
+    background: transparent;
+    border: 2px solid var(--secondary-neon);
+    color: var(--secondary-neon);
     border-radius: 50px;
     cursor: pointer;
     font-weight: bold;
     font-size: 1.1rem;
     transition: 0.2s;
+    text-shadow: 0 0 5px var(--secondary-neon);
+    box-shadow: 0 0 5px var(--secondary-neon);
 }
 
 .secondary-btn:hover {
-    background: var(--accent-color);
-    color: white;
+    background: var(--secondary-neon);
+    color: black;
+    box-shadow: 0 0 20px var(--secondary-neon);
 }
 
 #confetti-canvas {
@@ -487,4 +558,10 @@ h1 {
 /* Responsive */
 .hidden-section {
     display: none;
+}
+
+@media (min-width: 768px) {
+    h1 {
+        font-size: 5rem;
+    }
 }
