@@ -92,13 +92,18 @@ document.querySelectorAll('.trivia-btn').forEach(btn => {
             e.target.innerText = "Sahi Jawab! Pura nautanki hai tu! 😂";
             jsConfetti.addConfetti();
 
-            // Hide Trivia, Show Envelopes
+            // Hide Trivia, Show Crystal Ball & Envelopes
             setTimeout(() => {
                 triviaSection.classList.remove('visible');
                 setTimeout(() => {
                     triviaSection.style.display = 'none';
+                    crystalBallSection.classList.remove('hidden-section');
                     envelopesSection.classList.remove('hidden-section');
-                    setTimeout(() => envelopesSection.classList.add('visible'), 50);
+
+                    setTimeout(() => {
+                        crystalBallSection.classList.add('visible');
+                        envelopesSection.classList.add('visible');
+                    }, 50);
                 }, 500);
             }, 1000);
         } else {
@@ -111,6 +116,40 @@ document.querySelectorAll('.trivia-btn').forEach(btn => {
         }
     });
 });
+
+// Crystal Ball
+const crystalBallSection = document.getElementById('crystal-ball-section');
+const crystalBall = document.getElementById('crystal-ball');
+const predictionText = document.getElementById('prediction-text');
+
+const predictions = [
+    "Tu kal bartan dhoyegi! 🍽️",
+    "Teri shaadi kisi cartoon se hogi! 🤡",
+    "Tujhe bohot sara paisa milega (aur tu mujhe degi)! 💰",
+    "Tu agle saal world tour pe jayegi! ✈️",
+    "Tera crush tujhe message karega! 💬",
+    "Tujhe raaste pe 500 ka note milega! 💵",
+    "Tu hamesha meri favorite rahegi! ❤️"
+];
+
+crystalBall.addEventListener('click', () => {
+    const ballInner = document.querySelector('.ball-inner');
+    ballInner.classList.add('shake');
+    predictionText.style.opacity = 0;
+
+    setTimeout(() => {
+        const randomPred = predictions[Math.floor(Math.random() * predictions.length)];
+        predictionText.innerText = randomPred;
+        predictionText.style.opacity = 1;
+        ballInner.classList.remove('shake');
+        jsConfetti.addConfetti({ emojis: ['🔮', '✨'] });
+    }, 500);
+});
+
+// Show Crystal Ball after Trivia (and hide Envelopes logic adjust)
+// We'll show Crystal Ball FIRST, then Envelopes below it? Or replaces envelopes?
+// Let's show BOTH.
+
 
 // Envelope Logic
 const envelopeContent = {
