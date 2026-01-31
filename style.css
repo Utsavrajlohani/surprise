@@ -26,11 +26,15 @@ body {
 
 .container {
     width: 100%;
+    /* max-width: 480px; Removed strict mobile constraint */
+    max-width: 1200px;
+    /* Allow wider layout on desktop */
     min-height: 100vh;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0 auto;
 }
 
 .screen {
@@ -52,6 +56,8 @@ body {
     pointer-events: all;
     position: relative;
     /* Allows content to flow */
+    justify-content: center;
+    /* Center vertically on desktop */
 }
 
 .screen.hidden {
@@ -87,8 +93,9 @@ h1 {
 }
 
 .gift-box {
-    width: 150px;
-    height: 150px;
+    width: 180px;
+    /* Slightly larger base size */
+    height: 180px;
     position: relative;
     transform-style: preserve-3d;
     transition: transform 0.5s;
@@ -193,32 +200,43 @@ h1 {
 }
 
 /* Typewriter Message */
+.content-wrapper {
+    width: 100%;
+    max-width: 800px;
+    /* Limit width on desktop */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .message-box {
     background: rgba(255, 255, 255, 0.8);
-    padding: 1.5rem;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    margin: 1.5rem 0;
-    min-height: 100px;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    margin: 2rem 0;
+    min-height: 120px;
     width: 100%;
-    max-width: 500px;
-    text-align: left;
+    max-width: 600px;
+    text-align: center;
+    /* Center text on large screens looks nice */
 }
 
 #typewriter-text {
-    font-size: 1.1rem;
-    line-height: 1.6;
+    font-size: 1.3rem;
+    line-height: 1.8;
     color: #444;
 }
 
 /* Gallery */
 .gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    /* Larger items */
+    gap: 15px;
     width: 100%;
-    max-width: 600px;
-    margin-top: 1rem;
+    max-width: 800px;
+    margin-top: 1.5rem;
     opacity: 0;
     transform: translateY(20px);
     transition: all 1s ease;
@@ -231,19 +249,20 @@ h1 {
 
 .gallery-item {
     overflow: hidden;
-    border-radius: 12px;
+    border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     aspect-ratio: 1;
     position: relative;
     background: #fff;
     border: 3px solid #fff;
+    cursor: pointer;
 }
 
 .gallery-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s;
+    transition: transform 0.4s ease;
 }
 
 .gallery-item:hover img {
@@ -258,14 +277,14 @@ h1 {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    /* Let clicks pass through unless on element */
     z-index: 5;
     overflow: hidden;
 }
 
 .floating-item {
     position: absolute;
-    font-size: 2rem;
+    font-size: 2.5rem;
+    /* Larger icons */
     pointer-events: auto;
     cursor: pointer;
     user-select: none;
@@ -274,7 +293,7 @@ h1 {
 }
 
 .floating-item:active {
-    transform: scale(1.2);
+    transform: scale(1.3);
 }
 
 @keyframes floatUp {
@@ -288,14 +307,15 @@ h1 {
 }
 
 .secondary-btn {
-    margin-top: 2rem;
-    padding: 0.8rem 2rem;
+    margin-top: 2.5rem;
+    padding: 1rem 3rem;
     background: white;
     border: 2px solid var(--accent-color);
     color: var(--accent-color);
-    border-radius: 30px;
+    border-radius: 50px;
     cursor: pointer;
     font-weight: bold;
+    font-size: 1.1rem;
     transition: 0.2s;
 }
 
@@ -312,4 +332,67 @@ h1 {
     height: 100%;
     pointer-events: none;
     z-index: 20;
+}
+
+/* --- MEDIA QUERIES --- */
+
+/* Tablet & Desktop */
+@media (min-width: 768px) {
+    h1 {
+        font-size: 5rem;
+    }
+
+    .subtitle {
+        font-size: 1.5rem;
+    }
+
+    .gift-box {
+        width: 200px;
+        height: 200px;
+    }
+
+    .message-box {
+        padding: 3rem;
+        max-width: 700px;
+    }
+
+    #typewriter-text {
+        font-size: 1.5rem;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(3, 1fr);
+        /* 3 columns fixed for tidiness */
+        gap: 20px;
+    }
+}
+
+/* Mobile adjustments (Keep things tighter) */
+@media (max-width: 480px) {
+    .screen {
+        padding: 1.5rem;
+        justify-content: flex-start;
+        /* Flow from top on mobile */
+        padding-top: 20vh;
+        /* Start content a bit lower */
+    }
+
+    #surprise.screen {
+        padding-top: 2rem;
+        /* Less padding for content heavy page */
+    }
+
+    h1 {
+        font-size: 3rem;
+    }
+
+    .gift-box {
+        width: 140px;
+        height: 140px;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 cols for mobile grid */
+    }
 }
