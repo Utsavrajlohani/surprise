@@ -15,6 +15,15 @@
 <body>
     <div id="floating-container"></div>
 
+    <!-- Music Control -->
+    <button id="music-btn" class="music-btn hidden">
+        🔊 Music: Off
+    </button>
+    <audio id="bg-music" loop>
+        <!-- Royalty free happy music -->
+        <source src="https://assets.mixkit.co/music/preview/mixkit-happy-bells-loop-591.mp3" type="audio/mp3">
+    </audio>
+
     <div class="container">
         <!-- Intro Section with 3D Gift Box -->
         <section id="intro" class="screen active">
@@ -40,29 +49,39 @@
                     <p id="typewriter-text"></p>
                 </div>
 
+                <p class="instruction-text hidden-instruction" id="drag-instruction">✨ Drag the photos around! ✨</p>
+
                 <div id="gallery" class="gallery hidden-gallery">
                     <!-- Placeholder images from Unsplash -->
-                    <div class="gallery-item"><img
-                            src="https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?q=80&w=400&auto=format&fit=crop"
-                            alt="Memory 1"></div>
-                    <div class="gallery-item"><img
-                            src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=400&auto=format&fit=crop"
-                            alt="Memory 2"></div>
-                    <div class="gallery-item"><img
-                            src="https://images.unsplash.com/photo-1519671482538-518b78dc9fb6?q=80&w=400&auto=format&fit=crop"
-                            alt="Memory 3"></div>
-                    <div class="gallery-item"><img
-                            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=400&auto=format&fit=crop"
-                            alt="Memory 4"></div>
-                    <div class="gallery-item"><img
-                            src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f?q=80&w=400&auto=format&fit=crop"
-                            alt="Memory 5"></div>
-                    <div class="gallery-item"><img
-                            src="https://images.unsplash.com/photo-1472555792798-13f85b80d8f9?q=80&w=400&auto=format&fit=crop"
-                            alt="Memory 6"></div>
+                    <div class="gallery-item" style="--rotation: -5deg; --top: 10px; --left: 10px;">
+                        <img src="https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?q=80&w=400&auto=format&fit=crop"
+                            draggable="false" alt="Memory 1">
+                    </div>
+                    <div class="gallery-item" style="--rotation: 10deg; --top: 50px; --left: 120px;">
+                        <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=400&auto=format&fit=crop"
+                            draggable="false" alt="Memory 2">
+                    </div>
+                    <div class="gallery-item" style="--rotation: -15deg; --top: -20px; --left: 200px;">
+                        <img src="https://images.unsplash.com/photo-1519671482538-518b78dc9fb6?q=80&w=400&auto=format&fit=crop"
+                            draggable="false" alt="Memory 3">
+                    </div>
+                    <div class="gallery-item" style="--rotation: 8deg; --top: 150px; --left: 50px;">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=400&auto=format&fit=crop"
+                            draggable="false" alt="Memory 4">
+                    </div>
+                    <div class="gallery-item" style="--rotation: -8deg; --top: 100px; --left: 180px;">
+                        <img src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f?q=80&w=400&auto=format&fit=crop"
+                            draggable="false" alt="Memory 5">
+                    </div>
+                    <div class="gallery-item" style="--rotation: 12deg; --top: 40px; --left: 300px;">
+                        <img src="https://images.unsplash.com/photo-1472555792798-13f85b80d8f9?q=80&w=400&auto=format&fit=crop"
+                            draggable="false" alt="Memory 6">
+                    </div>
                 </div>
 
-                <button id="restart-btn" class="secondary-btn">Replay ↺</button>
+                <div class="controls-area">
+                    <button id="restart-btn" class="secondary-btn">Replay ↺</button>
+                </div>
             </div>
         </section>
     </div>

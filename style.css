@@ -26,15 +26,40 @@ body {
 
 .container {
     width: 100%;
-    /* max-width: 480px; Removed strict mobile constraint */
     max-width: 1200px;
-    /* Allow wider layout on desktop */
     min-height: 100vh;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
+}
+
+/* Audio Button */
+.music-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+    border: 2px solid var(--accent-color);
+    color: var(--accent-color);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: var(--font-main);
+    transition: 0.3s;
+}
+
+.music-btn:hover {
+    background: var(--accent-color);
+    color: white;
+}
+
+.music-btn.hidden {
+    display: none;
 }
 
 .screen {
@@ -55,9 +80,7 @@ body {
     transform: scale(1);
     pointer-events: all;
     position: relative;
-    /* Allows content to flow */
     justify-content: center;
-    /* Center vertically on desktop */
 }
 
 .screen.hidden {
@@ -85,6 +108,18 @@ h1 {
     margin-bottom: 2rem;
 }
 
+.instruction-text {
+    font-size: 1rem;
+    color: #888;
+    margin-top: 1rem;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.instruction-text.visible {
+    opacity: 1;
+}
+
 /* 3D Gift Box */
 .gift-container {
     perspective: 1000px;
@@ -94,7 +129,6 @@ h1 {
 
 .gift-box {
     width: 180px;
-    /* Slightly larger base size */
     height: 180px;
     position: relative;
     transform-style: preserve-3d;
@@ -112,23 +146,22 @@ h1 {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-.gift-body::before {
-    /* Vertical Ribbon */
+.gift-body::before,
+.gift-body::after {
     content: '';
     position: absolute;
+    background: var(--ribbon-color);
+}
+
+.gift-body::before {
     width: 20%;
     height: 100%;
-    background: var(--ribbon-color);
     left: 40%;
 }
 
 .gift-body::after {
-    /* Horizontal Ribbon */
-    content: '';
-    position: absolute;
     height: 20%;
     width: 100%;
-    background: var(--ribbon-color);
     top: 40%;
 }
 
@@ -177,7 +210,6 @@ h1 {
     transform: rotate(-90deg);
 }
 
-/* Open Animation */
 .gift-box.open .gift-lid {
     transform: rotateX(-110deg) translateY(-20px);
 }
@@ -203,7 +235,6 @@ h1 {
 .content-wrapper {
     width: 100%;
     max-width: 800px;
-    /* Limit width on desktop */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -219,7 +250,6 @@ h1 {
     width: 100%;
     max-width: 600px;
     text-align: center;
-    /* Center text on large screens looks nice */
 }
 
 #typewriter-text {
@@ -228,18 +258,16 @@ h1 {
     color: #444;
 }
 
-/* Gallery */
+/* Draggable Gallery */
 .gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    /* Larger items */
-    gap: 15px;
+    position: relative;
     width: 100%;
-    max-width: 800px;
-    margin-top: 1.5rem;
+    height: 400px;
+    /* Allocated space for dragging */
+    margin-top: 2rem;
     opacity: 0;
     transform: translateY(20px);
-    transition: all 1s ease;
+    transition: opacity 1s ease, transform 1s ease;
 }
 
 .gallery.visible {
@@ -248,52 +276,51 @@ h1 {
 }
 
 .gallery-item {
-    overflow: hidden;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    aspect-ratio: 1;
-    position: relative;
-    background: #fff;
-    border: 3px solid #fff;
-    cursor: pointer;
+    position: absolute;
+    width: 150px;
+    height: 180px;
+    background: white;
+    padding: 10px 10px 40px 10px;
+    /* Polaroid style bottom padding */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transform: rotate(var(--rotation));
+    top: var(--top);
+    /* Fallback positions */
+    left: var(--left);
+    cursor: grab;
+    transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.2s;
+    touch-action: none;
+    /* Prevent scrolling while dragging */
+    z-index: 10;
+}
+
+.gallery-item:active {
+    cursor: grabbing;
+    transform: scale(1.1) rotate(0deg) !important;
+    z-index: 100 !important;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
 .gallery-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.4s ease;
-}
-
-.gallery-item:hover img {
-    transform: scale(1.1);
+    pointer-events: none;
+    /* Prevent image drag interfering */
 }
 
 /* Floating Elements */
 #floating-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 5;
-    overflow: hidden;
+    padding: 0;
 }
 
 .floating-item {
     position: absolute;
     font-size: 2.5rem;
-    /* Larger icons */
     pointer-events: auto;
     cursor: pointer;
     user-select: none;
     animation: floatUp linear forwards;
-    transition: transform 0.1s;
-}
-
-.floating-item:active {
-    transform: scale(1.3);
 }
 
 @keyframes floatUp {
@@ -307,7 +334,7 @@ h1 {
 }
 
 .secondary-btn {
-    margin-top: 2.5rem;
+    margin-top: 1rem;
     padding: 1rem 3rem;
     background: white;
     border: 2px solid var(--accent-color);
@@ -317,6 +344,9 @@ h1 {
     font-weight: bold;
     font-size: 1.1rem;
     transition: 0.2s;
+    z-index: 20;
+    /* Ensure clickable above gallery if needed */
+    position: relative;
 }
 
 .secondary-btn:hover {
@@ -334,65 +364,38 @@ h1 {
     z-index: 20;
 }
 
-/* --- MEDIA QUERIES --- */
-
-/* Tablet & Desktop */
+/* Desktop */
 @media (min-width: 768px) {
     h1 {
         font-size: 5rem;
     }
 
-    .subtitle {
-        font-size: 1.5rem;
-    }
-
-    .gift-box {
-        width: 200px;
-        height: 200px;
-    }
-
-    .message-box {
-        padding: 3rem;
-        max-width: 700px;
-    }
-
-    #typewriter-text {
-        font-size: 1.5rem;
-    }
-
     .gallery {
-        grid-template-columns: repeat(3, 1fr);
-        /* 3 columns fixed for tidiness */
-        gap: 20px;
+        height: 500px;
+        max-width: 800px;
+    }
+
+    .gallery-item {
+        width: 180px;
+        height: 220px;
     }
 }
 
-/* Mobile adjustments (Keep things tighter) */
+/* Mobile */
 @media (max-width: 480px) {
     .screen {
-        padding: 1.5rem;
-        justify-content: flex-start;
-        /* Flow from top on mobile */
-        padding-top: 20vh;
-        /* Start content a bit lower */
-    }
-
-    #surprise.screen {
-        padding-top: 2rem;
-        /* Less padding for content heavy page */
-    }
-
-    h1 {
-        font-size: 3rem;
-    }
-
-    .gift-box {
-        width: 140px;
-        height: 140px;
+        padding-top: 10vh;
     }
 
     .gallery {
-        grid-template-columns: repeat(2, 1fr);
-        /* 2 cols for mobile grid */
+        height: 350px;
+        margin-bottom: 2rem;
     }
+
+    .gallery-item {
+        width: 120px;
+        height: 150px;
+    }
+
+    /* Spread items a bit better for small screens via JS or default CSS vars */
 }
