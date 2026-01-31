@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Surprise!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Intro Section -->
+        <section id="intro" class="screen active">
+            <div class="content-wrapper">
+                <h1 class="bounce">Hey Sis! ✨</h1>
+                <p>I have something special for you...</p>
+                <button id="reveal-btn" class="primary-btn">
+                    <span class="btn-text">Open Gift 🎁</span>
+                    <span class="btn-shine"></span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Surprise Section -->
+        <section id="surprise" class="screen hidden">
+            <div class="content-wrapper">
+                <h1 class="glow-text">Happy Birthday! 🎉</h1>
+                <div class="image-placeholder">
+                    <!-- Replace src with actual image later -->
+                    <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=2070&auto=format&fit=crop" alt="Celebration" class="rounded-img">
+                </div>
+                <p class="message">
+                    To the best sister in the world! <br>
+                    You are amazing, kind, and talented. <br>
+                    Hope your day is as wonderful as you are! 💖
+                </p>
+                <button id="confetti-btn" class="secondary-btn">More Confetti! 🎊</button>
+            </div>
+        </section>
+    </div>
+    
+    <canvas id="confetti-canvas"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
