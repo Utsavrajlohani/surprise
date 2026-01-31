@@ -166,7 +166,7 @@ function createFloatingElement() {
     const container = document.getElementById('floating-container');
     const el = document.createElement('div');
     el.classList.add('floating-item');
-    el.innerText = ['🎈', '💖', '🌸', '✨', '🦋'][Math.floor(Math.random() * 5)];
+    el.innerText = ['🪔', '🏵️', '✨', '🦚', '💃'][Math.floor(Math.random() * 5)];
     el.style.left = Math.random() * 90 + 'vw';
     el.style.animationDuration = (Math.random() * 5 + 5) + 's';
 
@@ -174,7 +174,7 @@ function createFloatingElement() {
         el.style.transform = 'scale(1.5)';
         el.style.opacity = '0';
         setTimeout(() => el.remove(), 200);
-        jsConfetti.addConfetti({ emojis: [el.innerText], confettiNumber: 10, confettiRadius: 3 });
+        jsConfetti.addConfetti({ emojis: [el.innerText, '🌸', '✨'], confettiNumber: 10, confettiRadius: 3 });
     });
 
     el.addEventListener('animationend', () => el.remove());
