@@ -2,11 +2,13 @@ const giftBox = document.getElementById('gift-box');
 const introScreen = document.getElementById('intro');
 const surpriseScreen = document.getElementById('surprise');
 const typewriterText = document.getElementById('typewriter-text');
-const gallery = document.getElementById('gallery');
+const triviaSection = document.getElementById('trivia-section');
+const envelopesSection = document.getElementById('envelopes-section');
 const restartBtn = document.getElementById('restart-btn');
 const musicBtn = document.getElementById('music-btn');
 const bgMusic = document.getElementById('bg-music');
-const dragInstruction = document.getElementById('drag-instruction');
+const modal = document.getElementById('modal');
+const closeModal = document.querySelector('.close-modal');
 const jsConfetti = new JSConfetti();
 
 const message = "Oye Heroine! 💖 Bas yaad dilana tha ki tu best sister hai. /Hamesha aise hi hasti rehna, bohot achi lagti hai. Ye dekh, tere liye chota sa surprise plan kiya hai! ✨";
@@ -18,19 +20,10 @@ giftBox.addEventListener('click', () => {
     if (isRevealed) return;
     isRevealed = true;
 
-    // 1. Play Music
     playMusic();
-
-    // 2. Open Box Animation
     giftBox.classList.add('open');
+    jsConfetti.addConfetti({ emojis: ['🎉', '🎁', '✨'], confettiNumber: 100 });
 
-    // 3. Confetti Explosion
-    jsConfetti.addConfetti({
-        emojis: ['🎉', '🎁', '✨'],
-        confettiNumber: 100,
-    });
-
-    // 4. Transition to Surprise Screen
     setTimeout(() => {
         introScreen.classList.remove('active');
         introScreen.classList.add('hidden');
@@ -40,19 +33,14 @@ giftBox.addEventListener('click', () => {
             surpriseScreen.classList.remove('hidden');
             surpriseScreen.classList.add('active');
 
-            // 5. Start Typewriter Effect
             typeWriter(message, 0);
-
-            // 6. Start Floating Elements
             startFloatingElements();
         }, 800);
     }, 1000);
 });
 
-// Music Control
-musicBtn.addEventListener('click', () => {
-    toggleMusic();
-});
+// Music
+musicBtn.addEventListener('click', toggleMusic);
 
 function playMusic() {
     bgMusic.volume = 0.4;
@@ -61,10 +49,8 @@ function playMusic() {
         musicBtn.classList.remove('hidden');
         musicBtn.innerText = "🔊 Music: On";
     }).catch(e => {
-        console.log("Auto-play blocked, showing button anyway");
         musicBtn.classList.remove('hidden');
         musicBtn.innerText = "🔇 Music: Off";
-        isMusicPlaying = false;
     });
 }
 
@@ -79,7 +65,7 @@ function toggleMusic() {
     isMusicPlaying = !isMusicPlaying;
 }
 
-// Typewriter Logic
+// Typewriter
 function typeWriter(text, i) {
     if (i < text.length) {
         if (text.charAt(i) === '/') {
@@ -90,96 +76,72 @@ function typeWriter(text, i) {
             setTimeout(() => typeWriter(text, i + 1), 40);
         }
     } else {
-        // Show Gallery after typing
+        // Show Trivia after typing
         setTimeout(() => {
-            gallery.classList.remove('hidden-gallery');
-            gallery.classList.add('visible');
-            dragInstruction.classList.add('visible');
-            jsConfetti.addConfetti();
-
-            // Initialize random positions better
-            scatterPhotos();
+            triviaSection.classList.remove('hidden-section');
+            setTimeout(() => triviaSection.classList.add('visible'), 50);
         }, 500);
     }
 }
 
-// Draggable Gallery Logic (Vanilla JS)
-function scatterPhotos() {
-    const items = document.querySelectorAll('.gallery-item');
-    const container = document.querySelector('.gallery');
-    const containerRect = container.getBoundingClientRect();
+// Trivia Logic
+document.querySelectorAll('.trivia-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        if (e.target.classList.contains('correct')) {
+            e.target.classList.add('success');
+            e.target.innerText = "Sahi Jawab! 🏆";
+            jsConfetti.addConfetti();
 
-    items.forEach(item => {
-        // Randomize position within container limits roughly
-        const x = Math.random() * (containerRect.width - 150);
-        const y = Math.random() * (containerRect.height - 180);
-        const rot = (Math.random() - 0.5) * 40; // -20 to 20 deg
-
-        item.style.left = `${x}px`;
-        item.style.top = `${y}px`;
-        item.style.transform = `rotate(${rot}deg)`;
-
-        makeDraggable(item);
+            // Hide Trivia, Show Envelopes
+            setTimeout(() => {
+                triviaSection.classList.remove('visible');
+                setTimeout(() => {
+                    triviaSection.style.display = 'none';
+                    envelopesSection.classList.remove('hidden-section');
+                    setTimeout(() => envelopesSection.classList.add('visible'), 50);
+                }, 500);
+            }, 1000);
+        } else {
+            e.target.classList.add('error');
+            e.target.innerText = "Galat! Mummy ka fav main hu! 😜";
+            setTimeout(() => {
+                e.target.innerText = "Try again 😅";
+                e.target.classList.remove('error');
+            }, 2000);
+        }
     });
-}
+});
 
-function makeDraggable(element) {
-    let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+// Envelope Logic
+const envelopeContent = {
+    'sad': { title: "Jab Sad Ho... 😢", text: "Tension mat le, sab theek ho jayega! Aur agar mood theek karna hai toh mujhe call kar, main pareshan karne ke liye hamesha free hu! 😉", img: "https://media.giphy.com/media/VbawWIGNtWAuI/giphy.gif" },
+    'happy': { title: "Jab Khush Ho... 😃", text: "Teri khushi mein hi meri khushi hai! Party kab de rahi hai? 🍕💃", img: "https://media.giphy.com/media/TdfyKrN7HGTIY/giphy.gif" },
+    'missing': { title: "Jab Miss Kare... 🥺", text: "Aww! Main bhi tujhe miss kar raha hu. Jaldi milenge! Tab tak ye virtual hug le le! 🤗", img: "https://media.giphy.com/media/3oEdv4hwTZFAj05pTE/giphy.gif" },
+    'hungry': { title: "Jab Bhook Lagi Ho... 🍕", text: "Jaake fridge check kar, waha kuch nahi milega! Order kar le, bill main bhar dunga (shayad). 😜", img: "https://media.giphy.com/media/1pA2TskF33668/giphy.gif" }
+};
 
-    element.onmousedown = dragMouseDown;
-    element.ontouchstart = dragMouseDown;
+window.openEnvelope = function (type) {
+    const data = envelopeContent[type];
+    document.getElementById('modal-title').innerText = data.title;
+    document.getElementById('modal-body').innerHTML = `
+        <p>${data.text}</p>
+        <img src="${data.img}" class="modal-img">
+    `;
+    modal.classList.add('active');
+    jsConfetti.addConfetti({ emojis: ['💌', '💝'] });
+};
 
-    function dragMouseDown(e) {
-        e = e || window.event;
-        e.preventDefault();
+closeModal.addEventListener('click', () => {
+    modal.classList.remove('active');
+});
 
-        // Get mouse cursor position at startup
-        pos3 = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
-        pos4 = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
-
-        document.onmouseup = closeDragElement;
-        document.onmousemove = elementDrag;
-
-        document.ontouchend = closeDragElement;
-        document.ontouchmove = elementDrag;
-
-        // Bring to front
-        element.style.zIndex = 100;
-        element.style.transform = `scale(1.1) rotate(0deg)`;
-    }
-
-    function elementDrag(e) {
-        e = e || window.event;
-        e.preventDefault();
-
-        const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
-        const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
-
-        // Calculate new cursor position
-        pos1 = pos3 - clientX;
-        pos2 = pos4 - clientY;
-        pos3 = clientX;
-        pos4 = clientY;
-
-        // Set element's new position
-        element.style.top = (element.offsetTop - pos2) + "px";
-        element.style.left = (element.offsetLeft - pos1) + "px";
-    }
-
-    function closeDragElement() {
-        // Stop moving when mouse button is released
-        document.onmouseup = null;
-        document.onmousemove = null;
-        document.ontouchend = null;
-        document.ontouchmove = null;
-
-        element.style.zIndex = 10;
-        const rot = (Math.random() - 0.5) * 20;
-        element.style.transform = `scale(1) rotate(${rot}deg)`;
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.classList.remove('active');
     }
 }
 
-// Interactive Floating Elements
+// Floating Elements
 function startFloatingElements() {
     setInterval(createFloatingElement, 1500);
 }

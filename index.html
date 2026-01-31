@@ -20,7 +20,6 @@
         🔊 Music: Off
     </button>
     <audio id="bg-music" loop>
-        <!-- Royalty free happy music -->
         <source src="https://assets.mixkit.co/music/preview/mixkit-happy-bells-loop-591.mp3" type="audio/mp3">
     </audio>
 
@@ -49,34 +48,44 @@
                     <p id="typewriter-text"></p>
                 </div>
 
-                <p class="instruction-text hidden-instruction" id="drag-instruction">✨ In photos ko idhar-udhar phek ke
-                    dekh! ✨</p>
+                <!-- Trivia Section -->
+                <div id="trivia-section" class="trivia-container hidden-section">
+                    <h2>Sister Quiz! 🧩</h2>
+                    <p>Unlock karne ke liye answer de:</p>
+                    <div class="trivia-question">
+                        <p>Mummy ka favorite bachha kaun hai?</p>
+                        <div class="options">
+                            <button class="trivia-btn correct">Main (Of course) 😎</button>
+                            <button class="trivia-btn wrong">Tu (Mazak mat kar) 🤣</button>
+                        </div>
+                    </div>
+                </div>
 
-                <div id="gallery" class="gallery hidden-gallery">
-                    <!-- Placeholder images from Unsplash -->
-                    <div class="gallery-item" style="--rotation: -5deg; --top: 10px; --left: 10px;">
-                        <img src="https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?q=80&w=400&auto=format&fit=crop"
-                            draggable="false" alt="Memory 1">
+                <!-- Open When Envelopes (Initially Hidden) -->
+                <div id="envelopes-section" class="envelopes-container hidden-section">
+                    <h2>Open When... 💌</h2>
+                    <div class="envelopes-grid">
+                        <div class="envelope" onclick="openEnvelope('sad')">
+                            <div class="envelope-label">You feel sad 😢</div>
+                        </div>
+                        <div class="envelope" onclick="openEnvelope('happy')">
+                            <div class="envelope-label">You are happy 😃</div>
+                        </div>
+                        <div class="envelope" onclick="openEnvelope('missing')">
+                            <div class="envelope-label">You miss me 🥺</div>
+                        </div>
+                        <div class="envelope" onclick="openEnvelope('hungry')">
+                            <div class="envelope-label">You are hungry 🍕</div>
+                        </div>
                     </div>
-                    <div class="gallery-item" style="--rotation: 10deg; --top: 50px; --left: 120px;">
-                        <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=400&auto=format&fit=crop"
-                            draggable="false" alt="Memory 2">
-                    </div>
-                    <div class="gallery-item" style="--rotation: -15deg; --top: -20px; --left: 200px;">
-                        <img src="https://images.unsplash.com/photo-1519671482538-518b78dc9fb6?q=80&w=400&auto=format&fit=crop"
-                            draggable="false" alt="Memory 3">
-                    </div>
-                    <div class="gallery-item" style="--rotation: 8deg; --top: 150px; --left: 50px;">
-                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=400&auto=format&fit=crop"
-                            draggable="false" alt="Memory 4">
-                    </div>
-                    <div class="gallery-item" style="--rotation: -8deg; --top: 100px; --left: 180px;">
-                        <img src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f?q=80&w=400&auto=format&fit=crop"
-                            draggable="false" alt="Memory 5">
-                    </div>
-                    <div class="gallery-item" style="--rotation: 12deg; --top: 40px; --left: 300px;">
-                        <img src="https://images.unsplash.com/photo-1472555792798-13f85b80d8f9?q=80&w=400&auto=format&fit=crop"
-                            draggable="false" alt="Memory 6">
+                </div>
+
+                <!-- Modal for Envelope Content -->
+                <div id="modal" class="modal hidden">
+                    <div class="modal-content">
+                        <span class="close-modal">&times;</span>
+                        <h2 id="modal-title"></h2>
+                        <div id="modal-body"></div>
                     </div>
                 </div>
 
