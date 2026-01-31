@@ -9,7 +9,7 @@ const bgMusic = document.getElementById('bg-music');
 const dragInstruction = document.getElementById('drag-instruction');
 const jsConfetti = new JSConfetti();
 
-const message = "Hey sis! 💖 Just wanted to take a moment to appreciate how awesome you are. You bring so much joy/ and laughter into our lives. Here are some happy vibes for you! ✨";
+const message = "Oye Heroine! 💖 Bas yaad dilana tha ki tu best sister hai. /Hamesha aise hi hasti rehna, bohot achi lagti hai. Ye dekh, tere liye chota sa surprise plan kiya hai! ✨";
 let isRevealed = false;
 let isMusicPlaying = false;
 
