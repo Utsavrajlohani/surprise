@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Surprise!</title>
+    <title>Surprise!</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=Pacifico&display=swap"
@@ -13,16 +13,21 @@
 </head>
 
 <body>
+    <div id="floating-container"></div>
+
     <div class="container">
-        <!-- Intro Section -->
+        <!-- Intro Section with 3D Gift Box -->
         <section id="intro" class="screen active">
-            <div class="content-wrapper">
-                <h1 class="bounce">Hey Sis! ✨</h1>
-                <p>I have something special for you...</p>
-                <button id="reveal-btn" class="primary-btn">
-                    <span class="btn-text">Open Gift 🎁</span>
-                    <span class="btn-shine"></span>
-                </button>
+            <h1 class="bounce">For You 🎁</h1>
+            <p class="subtitle">Tap the box to open!</p>
+
+            <div class="gift-container">
+                <div class="gift-box" id="gift-box">
+                    <div class="gift-lid">
+                        <div class="gift-bow"></div>
+                    </div>
+                    <div class="gift-body"></div>
+                </div>
             </div>
         </section>
 
@@ -30,17 +35,34 @@
         <section id="surprise" class="screen hidden">
             <div class="content-wrapper">
                 <h1 class="glow-text">Surprise! 🎉</h1>
-                <div class="image-placeholder">
-                    <!-- Replace src with actual image later -->
-                    <img src="https://images.unsplash.com/photo-1490750967868-58cb75063ed4?q=80&w=2070&auto=format&fit=crop"
-                        alt="Flowers" class="rounded-img">
+
+                <div class="message-box">
+                    <p id="typewriter-text"></p>
                 </div>
-                <p class="message">
-                    Just wanted to remind you... <br>
-                    You are the best sister in the world! 💖<br>
-                    Hope this makes your day a little brighter! ✨
-                </p>
-                <button id="confetti-btn" class="secondary-btn">More Confetti! 🎊</button>
+
+                <div id="gallery" class="gallery hidden-gallery">
+                    <!-- Placeholder images from Unsplash -->
+                    <div class="gallery-item"><img
+                            src="https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?q=80&w=400&auto=format&fit=crop"
+                            alt="Memory 1"></div>
+                    <div class="gallery-item"><img
+                            src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=400&auto=format&fit=crop"
+                            alt="Memory 2"></div>
+                    <div class="gallery-item"><img
+                            src="https://images.unsplash.com/photo-1519671482538-518b78dc9fb6?q=80&w=400&auto=format&fit=crop"
+                            alt="Memory 3"></div>
+                    <div class="gallery-item"><img
+                            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=400&auto=format&fit=crop"
+                            alt="Memory 4"></div>
+                    <div class="gallery-item"><img
+                            src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f?q=80&w=400&auto=format&fit=crop"
+                            alt="Memory 5"></div>
+                    <div class="gallery-item"><img
+                            src="https://images.unsplash.com/photo-1472555792798-13f85b80d8f9?q=80&w=400&auto=format&fit=crop"
+                            alt="Memory 6"></div>
+                </div>
+
+                <button id="restart-btn" class="secondary-btn">Replay ↺</button>
             </div>
         </section>
     </div>
