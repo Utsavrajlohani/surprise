@@ -89,7 +89,7 @@ document.querySelectorAll('.trivia-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
         if (e.target.classList.contains('correct')) {
             e.target.classList.add('success');
-            e.target.innerText = "Sahi Jawab! 🏆";
+            e.target.innerText = "Sahi Jawab! Pura nautanki hai tu! 😂";
             jsConfetti.addConfetti();
 
             // Hide Trivia, Show Envelopes
@@ -103,9 +103,9 @@ document.querySelectorAll('.trivia-btn').forEach(btn => {
             }, 1000);
         } else {
             e.target.classList.add('error');
-            e.target.innerText = "Galat! Mummy ka fav main hu! 😜";
+            e.target.innerText = "Jhooth mat bol! 🤥";
             setTimeout(() => {
-                e.target.innerText = "Try again 😅";
+                e.target.innerText = "Sach bol de... 🔫";
                 e.target.classList.remove('error');
             }, 2000);
         }
